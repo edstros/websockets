@@ -5,7 +5,7 @@
   "authors": [
     "Edwin Acevedo <edwin.a.acevedo@gmail.com>"
   ],
-  "main": "app.js",
+
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -13,5 +13,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "socket.io-client": "~1.3.6"
+  }
 }
