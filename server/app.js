@@ -2,13 +2,30 @@
 
 
 var express = require('express');
-var sockcetio = require('socket.io');
+var socketio = require('socket.io');
 
 var app = express();
+
 app.use(express.static('client'));
+
 var server = app.listen(3000, function () {
   console.log('Server listening on port 3000');
 });
 
-socketio(server);
+var io = socketio(server);
 
+io.on('connection', function (socket) {
+  console.log('Client connected:', socket.id);
+
+  socket.on('disconnect', function () {
+    console.log('Client disconnected: ', socket.id);
+  });
+  socket.on('chatMessage', function (msg) {
+    console.log('Chat message received:', msg);
+    /*socket.emit('chatMessage', { toIndividual: msg  });
+    socket.broadcast.emit('chatMessage', {  toOthers: msg  });*/
+    io.emit('chatMessage', msg/*{ toEveryone: msg  }*/);
+  });
+});
+
+/*socketio(server);*/
